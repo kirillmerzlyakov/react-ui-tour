@@ -20,6 +20,7 @@ export interface TooltipProps {
   onSkip?: () => void;
   pinOptions?: PinOptions;
   width?: number;
+  crossColor?: string;
 }
 
 export class Tooltip extends React.Component<TooltipProps> {
@@ -37,11 +38,11 @@ export class Tooltip extends React.Component<TooltipProps> {
   static Header = Header;
   static Body = Content;
   static Footer = Footer;
-  state = {hasElem: true}
+  state = { hasElem: true };
 
   componentWillMount() {
     if (!this.props.targetGetter()) {
-      this.setState({hasElem: false})
+      this.setState({ hasElem: false });
     }
   }
 
@@ -62,7 +63,13 @@ export class Tooltip extends React.Component<TooltipProps> {
           hasShadow
         >
           <div className={styles.tooltip} style={{ width: this.props.width }}>
-            <span className={styles.closeBtn} onClick={this.props.onClose} />
+            <span
+              className={styles.closeBtn}
+              style={{ color: this.props.crossColor }}
+              onClick={this.props.onClose}
+            >
+              ×
+            </span>
             {this.props.children}
           </div>
         </Popup>
